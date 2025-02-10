@@ -4,12 +4,25 @@ public class Task {
 
     private String name;
     private String description;
-    private Date dueDate;
+    private String dueDate;
     private int priority;
     private String category;
     private String status;
 
-    public Task(String name, String description, Date dueDate, int priority, String category, String status) {
+    public Task() {
+    }
+
+    @Override
+    public String toString() {
+        return "name: '" + name + '\'' +
+                ", description: '" + description + '\'' +
+                ", dueDate: '" + dueDate + '\'' +
+                ", priority: " + priority +
+                ", category: '" + category + '\'' +
+                ", status: '" + status + '\'';
+    }
+
+    public Task(String name, String description, String dueDate, int priority, String category, String status) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
@@ -34,11 +47,11 @@ public class Task {
         this.description = description;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
