@@ -1,2 +1,11 @@
 Name,Description,Due Date,Priority,Category,Status
 Dishes,Clean the dishes,09/02,5,Chores,todo
+Homework,Finish math exercises,09/03,3,School,doing
+Groceries,Buy vegetables and milk,09/04,2,Errands,todo
+Workout,Go to the gym,09/05,4,Health,done
+Presentation,Prepare slides for meeting,09/06,5,Work,todo
+Laundry,Wash and fold clothes,09/07,3,Chores,doing
+Birthday Gift,Buy a present for Alex,09/08,4,Personal,todo
+Car Service,Take the car to the mechanic,09/09,5,Errands,todo
+Book Reading,Finish reading ‘The Alchemist’,09/10,2,Leisure,doing
+Code Review,Review PRs on GitHub,09/11,4,Work,todo

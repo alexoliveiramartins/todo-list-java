@@ -10,6 +10,7 @@ public class Task {
     private String status;
 
     public Task() {
+
     }
 
     @Override
@@ -20,6 +21,15 @@ public class Task {
                 ", priority: " + priority +
                 ", category: '" + category + '\'' +
                 ", status: '" + status + '\'';
+    }
+
+    public String toCsvString() {
+        return name + ","
+                + description + ","
+                + dueDate + ","
+                + priority + ","
+                + category + ","
+                + status;
     }
 
     public Task(String name, String description, String dueDate, int priority, String category, String status) {
