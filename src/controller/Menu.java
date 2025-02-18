@@ -1,7 +1,11 @@
-import jdk.jshell.execution.Util;
+package controller;
 
+import model.Task;
+import model.TasksData;
+import view.DisplayTasks;
+
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Scanner;
 
 import static java.lang.Character.isDigit;
 
@@ -74,7 +78,7 @@ public class Menu {
                 break;
             }
             case 3: {
-                String change = Utils.readInput("Enter new due date: ");
+                LocalDateTime change = Utils.stringToDate(Utils.readInput("Enter new due date (DD/MM/YYYY 00:00): "));
                 selectedTask.setDueDate(change);
                 break;
             }
@@ -103,13 +107,12 @@ public class Menu {
     public Task newTaskMenu(){
         String name = Utils.readInput("Enter task name: ");
         String description = Utils.readInput("Enter task description: ");
-        String dueDate = Utils.readInput("Enter task due date: ");
+        LocalDateTime dueDate = Utils.stringToDate(Utils.readInput("Enter task due date (DD/MM/YYYY 00:00): "));
         int priority = Utils.readIntegerInput("Enter task priority: ");
         String category = Utils.readInput("Enter task category: ");
         String status = "todo";
 
         System.out.println(name + " added.");
-
         return new Task(name, description, dueDate, priority, category, status);
     }
 

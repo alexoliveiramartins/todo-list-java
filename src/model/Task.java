@@ -1,10 +1,12 @@
-import java.util.Date;
+package model;
+
+import java.time.LocalDateTime;
 
 public class Task {
 
     private String name;
     private String description;
-    private String dueDate;
+    private LocalDateTime dueDate;
     private int priority;
     private String category;
     private String status;
@@ -32,7 +34,7 @@ public class Task {
                 + status;
     }
 
-    public Task(String name, String description, String dueDate, int priority, String category, String status) {
+    public Task(String name, String description, LocalDateTime dueDate, int priority, String category, String status) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
@@ -57,11 +59,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getDueDate() {
+    public LocalDateTime getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDateTime dueDate) {
         this.dueDate = dueDate;
     }
 

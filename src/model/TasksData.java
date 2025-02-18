@@ -1,4 +1,9 @@
+package model;
+
+import controller.Utils;
+
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class TasksData {
@@ -34,12 +39,16 @@ public class TasksData {
     public List<Task> getTasks() {
         return tasks;
     }
+
     public List<Task> getTasksByName(){
         List<Task> tasksByName = tasks;
         tasksByName.sort(Comparator.comparing(Task::getName));
         return tasksByName;
     }
-    public Set<String> getCategoriesMap() { return categoriesMap; }
+
+    public Set<String> getCategoriesMap() {
+        return categoriesMap;
+    }
 
     public void populateTasks() {
         List<String> lines = new ArrayList<>();
@@ -58,7 +67,7 @@ public class TasksData {
             String[] categories = line.split(",");
             String name = categories[0];
             String description = categories[1];
-            String dueDate = categories[2];
+            LocalDateTime dueDate = LocalDateTime.parse(categories[2]);
             int priority = Integer.parseInt(categories[3]);
             String category = categories[4];
             String status = categories[5];
