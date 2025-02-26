@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
+
 public class Utils {
     private Utils() {
 
@@ -57,4 +59,19 @@ public class Utils {
         return LocalDateTime.of(year, month, day, hour, minutes);
     }
 
+    public static void sleepInSeconds(int seconds){
+        try {
+            sleep(seconds* 1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean datesAreEqual(LocalDateTime date1, LocalDateTime date2){
+        return (date1.getHour() == date2.getHour())
+                && (date1.getMinute() == date2.getMinute())
+                && (date1.getSecond() == date2.getSecond())
+                && (date1.getDayOfMonth() == date2.getDayOfMonth())
+                && (date1.getYear() == date2.getYear());
+    }
 }
