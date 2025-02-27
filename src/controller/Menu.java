@@ -5,12 +5,9 @@ import model.TasksData;
 import view.DisplayTasks;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
-import static java.lang.Character.isDigit;
 
 public class Menu {
-    TasksData tasksData = new TasksData();
+    static TasksData tasksData = new TasksData();
     DisplayTasks displayTasks = new DisplayTasks(tasksData);
 
     public void mainMenu() {
@@ -50,10 +47,8 @@ public class Menu {
     }
 
     public void editTaskMenu() {
-        List<Task> tasks = tasksData.getTasksByName();
         int selection = taskSelection();
-
-        Task selectedTask = tasks.get(selection - 1);
+        Task selectedTask = tasksData.getTasksByName().get(selection - 1);
 
         System.out.println("\nSelect property to change: ");
         System.out.println("[1] Name");

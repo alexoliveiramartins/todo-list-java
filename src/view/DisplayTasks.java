@@ -29,7 +29,6 @@ public class DisplayTasks {
         }
     }
 
-
     public void showTasksByPriority(){
         List<Task> tasks = tasksData.getTasks();
         tasks.sort(Comparator.comparing(Task::getPriority).reversed());
@@ -47,14 +46,14 @@ public class DisplayTasks {
     }
 
     public void showTasksByCategory(){
-        Set<String> categories = tasksData.getCategoriesMap();
+        Set<String> categories = tasksData.getCategoriesSet();
         List<Task> allTasks = tasksData.getTasks();
 
         for(String category : categories){
             System.out.println("==== " + category + " ====");
             for(Task task : allTasks){
                 if(task.getCategory().equals(category)){
-                    System.out.println(task.toString());
+                    System.out.println(task);
                 }
             }
         }

@@ -5,11 +5,10 @@ import model.TasksData;
 
 import javax.swing.*;
 import java.time.LocalDateTime;
-
-import static java.lang.Thread.sleep;
+import java.time.temporal.ChronoUnit;
 
 public class Alarm {
-    TasksData data;
+    TasksData data = Menu.tasksData;
     LocalDateTime currentDate;
 
     public Alarm(){
@@ -17,7 +16,6 @@ public class Alarm {
             @Override
             public void run() {
                 while(true){
-                    data = new TasksData();
                     currentDate = LocalDateTime.now();
                     taskDueNow(currentDate);
                     Utils.sleepInSeconds(1);
@@ -32,6 +30,13 @@ public class Alarm {
             if(Utils.datesAreEqual(currentDate, task.getDueDate())){
                 JOptionPane.showMessageDialog(null, "Due now: " + task.getName(), "Warning", JOptionPane.INFORMATION_MESSAGE);
             }
+//            for(LocalDateTime data : task.getAlarms()){
+//                if(Utils.datesAreEqual(currentDate, data))
+//                    JOptionPane.showMessageDialog(null, "Due now: " + task.getName(), "Warning", JOptionPane.INFORMATION_MESSAGE);
+//
+//            }
+            if(task.getAlarms().contains(currentDate.truncatedTo(ChronoUnit.SECONDS)))
+                JOptionPane.showMessageDialog(null, "Due now: " + task.getName(), "Warning", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

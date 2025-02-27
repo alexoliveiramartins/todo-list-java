@@ -1,39 +1,39 @@
 package model;
 
-import controller.Utils;
+import controller.JsonUtils;
 
-import java.io.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class TasksData {
-    private List<Task> tasks = new ArrayList<Task>();
-    private final String filePath = "tasks.csv";
-    private Set<String> categoriesMap = new HashSet<>();
+    private List<Task> tasks = new ArrayList<>();
+    private final Set<String> categoriesSet = new HashSet<>();
 
-    public TasksData() {
+    public TasksData(){
+//        System.out.println("Rodei construtor tasksdata");
         populateTasks();
     }
 
-    public void updateTaskList() {
-        categoriesMap = new HashSet<>();
+    public void updateTaskList(){
+        JsonUtils.writeTasks(tasks);
+    }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("Name,Description,Due Date,Priority,Category,Status\n");
-            for (Task task : tasks) {
-                categoriesMap.add(task.getCategory());
-                writer.write(task.toCsvString());
-                writer.newLine();
-            }
-            System.out.println("Task list updated.");
-        } catch (IOException e) {
-            System.out.println("Error writing file: " + e.getMessage());
+    private void populateTasks(){
+        tasks = JsonUtils.getTasks();
+        for(Task t : tasks){
+            categoriesSet.add(t.getCategory());
         }
+    }
 
-//        System.out.println("Debug: ");
-//        for (Task task : tasks) {
-//            System.out.println(task.toCsvString());
-//        }
+    public Set<String> getCategoriesSet(){
+        return categoriesSet;
+    }
+
+    public void addTask(Task task){
+        JsonUtils.addTask(task);
+    }
+
+    public void removeTask(String name){
+        JsonUtils.removeTask(name);
     }
 
     public List<Task> getTasks() {
@@ -46,55 +46,5 @@ public class TasksData {
         return tasksByName;
     }
 
-    public Set<String> getCategoriesMap() {
-        return categoriesMap;
-    }
 
-    public void populateTasks() {
-        List<String> lines = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            while(br.ready()) {
-                lines.add(br.readLine());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        // remover os headers
-        lines.remove(0);
-
-        for(String line : lines) {
-            String[] categories = line.split(",");
-            String name = categories[0];
-            String description = categories[1];
-            LocalDateTime dueDate = LocalDateTime.parse(categories[2]);
-            int priority = Integer.parseInt(categories[3]);
-            String category = categories[4];
-            String status = categories[5];
-
-            Task task = new Task(name, description, dueDate, priority, category, status);
-            tasks.add(task);
-            categoriesMap.add(task.getCategory());
-        }
-//        for(String line : lines) { // debug
-//            System.out.println(line);
-//        }
-    }
-
-    public void removeTask(String name) {
-        Task taskToRemove = new Task();
-        for(Task task : tasks) {
-            if(task.getName().equals(name)) {
-                taskToRemove = task;
-                break;
-            }
-        }
-        tasks.remove(taskToRemove);
-        updateTaskList();
-    }
-
-    public void addTask(Task task) {
-        tasks.add(task);
-        updateTaskList();
-    }
 }
