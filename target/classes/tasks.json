@@ -2,11 +2,11 @@
   "tasks" : [ {
     "name" : "Andar",
     "description" : "Andar cachorro",
-    "dueDate" : "2025-02-26T23:13",
+    "dueDate" : "2025-02-27T10:59",
     "priority" : 4,
     "category" : "Health",
     "status" : "done",
-    "alarms" : [ "2025-02-26T23:16", "2025-02-26T23:15" ]
+    "alarms" : [ "2025-02-26T23:16", "2005-03-04T00:00", "2025-02-27T09:20", "2025-02-26T23:15" ]
   }, {
     "name" : "Comer cu de curiso",
     "description" : "Go to the gym",
@@ -16,13 +16,29 @@
     "status" : "done",
     "alarms" : [ "2025-02-26T23:11", "2025-02-26T23:15" ]
   }, {
+    "name" : "Estudar",
+    "description" : "Trilha de Testes unitarios",
+    "dueDate" : "2025-02-27T09:23",
+    "priority" : 5,
+    "category" : "pessoal",
+    "status" : "todo",
+    "alarms" : [ ]
+  }, {
     "name" : "Ir ao mercado",
     "description" : "Go to the gym",
     "dueDate" : "2025-02-26T23:13",
     "priority" : 4,
     "category" : "Health",
-    "status" : "done",
-    "alarms" : [ "2025-02-26T23:16", "2025-02-26T23:12" ]
+    "status" : "todo",
+    "alarms" : [ "2025-02-26T23:16" ]
+  }, {
+    "name" : "Refatorar codigo",
+    "description" : "arrumar bugs",
+    "dueDate" : "2025-02-27T10:58",
+    "priority" : 5,
+    "category" : "Codigo",
+    "status" : "todo",
+    "alarms" : [ ]
   }, {
     "name" : "Workaut",
     "description" : "Go to the gym",

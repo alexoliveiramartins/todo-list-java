@@ -1,8 +1,6 @@
 package controller;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
@@ -12,17 +10,17 @@ public class Utils {
 
     }
 
-    public static String readInput(){
+    public static String readInput() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
 
-    public static String readInput(String question){
+    public static String readInput(String question) {
         System.out.print(question);
         return readInput();
     }
 
-    public static int readIntegerInput(){
+    public static int readIntegerInput() {
         Scanner sc = new Scanner(System.in);
         int number;
 
@@ -40,15 +38,15 @@ public class Utils {
         return number;
     }
 
-    public static int readIntegerInput(String question){
+    public static int readIntegerInput(String question) {
         System.out.print(question);
         return readIntegerInput();
     }
 
-    public static LocalDateTime stringToDate(String date){
-        String [] dataElements = date.split(" ");
-        String [] dayMonthYear = dataElements[0].split("/");
-        String [] hourMinutes = dataElements[1].split(":");
+    public static LocalDateTime stringToDate(String date) {
+        String[] dataElements = date.split(" ");
+        String[] dayMonthYear = dataElements[0].split("/");
+        String[] hourMinutes = dataElements[1].split(":");
 
         int day = Integer.parseInt(dayMonthYear[0]);
         int month = Integer.parseInt(dayMonthYear[1]);
@@ -59,15 +57,15 @@ public class Utils {
         return LocalDateTime.of(year, month, day, hour, minutes);
     }
 
-    public static void sleepInSeconds(int seconds){
+    public static void sleepInSeconds(int seconds) {
         try {
-            sleep(seconds* 1000L);
+            sleep(seconds * 1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static boolean datesAreEqual(LocalDateTime date1, LocalDateTime date2){
+    public static boolean datesAreEqual(LocalDateTime date1, LocalDateTime date2) {
         return (date1.getHour() == date2.getHour())
                 && (date1.getMinute() == date2.getMinute())
                 && (date1.getSecond() == date2.getSecond())

@@ -5,13 +5,15 @@ import model.TasksData;
 import view.DisplayTasks;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Menu {
     static TasksData tasksData = new TasksData();
     DisplayTasks displayTasks = new DisplayTasks(tasksData);
 
     public void mainMenu() {
-        while(true){
+        while (true) {
             System.out.println("\n====Menu====");
             System.out.println("\n1. Show Tasks");
             System.out.println("2. Add Task");
@@ -21,7 +23,7 @@ public class Menu {
             System.out.print("> ");
 
             int input = Utils.readIntegerInput();
-            switch(input){
+            switch (input) {
                 case 1: {
                     tasksMenu();
                     break;
@@ -31,7 +33,7 @@ public class Menu {
                     break;
                 }
                 case 3: {
-                    String taskToRemove = tasksData.getTasksByName().get(taskSelection()-1).getName();
+                    String taskToRemove = tasksData.getTasksByName().get(taskSelection() - 1).getName();
                     System.out.println(taskToRemove + " removed.");
                     tasksData.removeTask(taskToRemove);
                     break;
@@ -40,8 +42,10 @@ public class Menu {
                     editTaskMenu();
                     break;
                 }
-                case 5: return;
-                default: break;
+                case 5:
+                    return;
+                default:
+                    break;
             }
         }
     }
@@ -57,11 +61,12 @@ public class Menu {
         System.out.println("[4] Priority");
         System.out.println("[5] Category");
         System.out.println("[6] Status");
-        System.out.println("[7] Cancel ");
+        System.out.println("[7] Alarms ");
+        System.out.println("[8] Cancel");
         System.out.print("> ");
         int input = Utils.readIntegerInput();
 
-        switch(input){
+        switch (input) {
             case 1: {
                 String change = Utils.readInput("Enter new name: ");
                 selectedTask.setName(change);
@@ -93,25 +98,65 @@ public class Menu {
                 break;
             }
             case 7: {
+                alarmMenu(selectedTask);
+                break;
+            }
+            case 8: {
                 return;
             }
         }
         tasksData.updateTaskList();
     }
 
-    public Task newTaskMenu(){
+    public void alarmMenu(Task selectedTask) {
+        System.out.println("Select an option: \n");
+        System.out.println("[1] Novo Alarme");
+        System.out.println("[2] Remover Alarme\n");
+        System.out.print("> ");
+
+        int input = Utils.readIntegerInput();
+
+        switch (input) {
+            case 1:
+                LocalDateTime newAlarm = Utils.stringToDate(Utils.readInput("Enter new alarm time (DD/MM/YYYY 00:00): "));
+                selectedTask.getAlarms().add(newAlarm);
+                break;
+            case 2:
+                LocalDateTime remove = alarmSelection(selectedTask);
+                selectedTask.getAlarms().remove(remove);
+                break;
+            default:
+        }
+    }
+
+    public Task newTaskMenu() {
         String name = Utils.readInput("Enter task name: ");
         String description = Utils.readInput("Enter task description: ");
         LocalDateTime dueDate = Utils.stringToDate(Utils.readInput("Enter task due date (DD/MM/YYYY 00:00): "));
         int priority = Utils.readIntegerInput("Enter task priority: ");
         String category = Utils.readInput("Enter task category: ");
         String status = "todo";
+        Set<LocalDateTime> alarms = new HashSet<>();
 
         System.out.println(name + " added.");
-        return new Task(name, description, dueDate, priority, category, status);
+        return new Task(name, description, dueDate, priority, category, status, alarms);
     }
 
-    public int taskSelection(){
+    public LocalDateTime alarmSelection(Task task) {
+        int input;
+        displayTasks.displayTaskAlarms(task);
+        System.out.println("\nSelect an alarm: ");
+        System.out.print("> ");
+        input = Utils.readIntegerInput() - 1;
+        int it = 0;
+        for (LocalDateTime data : task.getAlarms()) {
+            if (it == input) return data;
+            it++;
+        }
+        return null;
+    }
+
+    public int taskSelection() {
         int input;
         displayTasks.showTasksByName();
         System.out.println("\nSelect a task: ");
@@ -120,8 +165,8 @@ public class Menu {
         return input;
     }
 
-    public void tasksMenu(){
-        while(true){
+    public void tasksMenu() {
+        while (true) {
             System.out.println("\n====Menu====");
             System.out.println("\n1. Show tasks by name");
             System.out.println("2. Show tasks by priority");
@@ -132,13 +177,23 @@ public class Menu {
 
             String input = Utils.readInput();
 
-            switch(input){
-                case "1": displayTasks.showTasksByName(); break;
-                case "2": displayTasks.showTasksByPriority(); break;
-                case "3": displayTasks.showTasksByStatus(); break;
-                case "4": displayTasks.showTasksByCategory(); break;
-                case "5": return;
-                default: break;
+            switch (input) {
+                case "1":
+                    displayTasks.showTasksByName();
+                    break;
+                case "2":
+                    displayTasks.showTasksByPriority();
+                    break;
+                case "3":
+                    displayTasks.showTasksByStatus();
+                    break;
+                case "4":
+                    displayTasks.showTasksByCategory();
+                    break;
+                case "5":
+                    return;
+                default:
+                    break;
             }
         }
     }

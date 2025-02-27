@@ -11,11 +11,11 @@ public class Alarm {
     TasksData data = Menu.tasksData;
     LocalDateTime currentDate;
 
-    public Alarm(){
+    public Alarm() {
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true){
+                while (data != null) {
                     currentDate = LocalDateTime.now();
                     taskDueNow(currentDate);
                     Utils.sleepInSeconds(1);
@@ -25,18 +25,13 @@ public class Alarm {
         t1.start();
     }
 
-    public void taskDueNow(LocalDateTime currentDate){
-        for(Task task : data.getTasks()){
-            if(Utils.datesAreEqual(currentDate, task.getDueDate())){
+    public void taskDueNow(LocalDateTime currentDate) {
+        for (Task task : data.getTasks()) {
+            if (Utils.datesAreEqual(currentDate, task.getDueDate())) {
                 JOptionPane.showMessageDialog(null, "Due now: " + task.getName(), "Warning", JOptionPane.INFORMATION_MESSAGE);
             }
-//            for(LocalDateTime data : task.getAlarms()){
-//                if(Utils.datesAreEqual(currentDate, data))
-//                    JOptionPane.showMessageDialog(null, "Due now: " + task.getName(), "Warning", JOptionPane.INFORMATION_MESSAGE);
-//
-//            }
-            if(task.getAlarms().contains(currentDate.truncatedTo(ChronoUnit.SECONDS)))
-                JOptionPane.showMessageDialog(null, "Due now: " + task.getName(), "Warning", JOptionPane.INFORMATION_MESSAGE);
+            if (task.getAlarms().contains(currentDate.truncatedTo(ChronoUnit.SECONDS)))
+                JOptionPane.showMessageDialog(null, "Alarm for: " + task.getName(), "Warning", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

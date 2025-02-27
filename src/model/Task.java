@@ -20,24 +20,16 @@ public class Task {
     private Set<LocalDateTime> alarms;
 
     public Task() {
-
     }
 
-    public Set<LocalDateTime> getAlarms() {
-        return alarms;
-    }
-
-    public void setAlarms(Set<LocalDateTime> alarms) {
-        this.alarms = alarms;
-    }
-
-    public Task(String name, String description, LocalDateTime dueDate, int priority, String category, String status) {
+    public Task(String name, String description, LocalDateTime dueDate, int priority, String category, String status, Set<LocalDateTime> alarms) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.category = category;
         this.status = status;
+        this.alarms = alarms;
     }
 
     @Override
@@ -98,6 +90,14 @@ public class Task {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<LocalDateTime> getAlarms() {
+        return alarms;
+    }
+
+    public void setAlarms(Set<LocalDateTime> alarms) {
+        this.alarms = alarms;
     }
 
 }

@@ -19,7 +19,7 @@ public class JsonUtils {
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
-    public static void writeTasks(List<Task> tasks){
+    public static void writeTasks(List<Task> tasks) {
         TaskListWrapper wrapper = new TaskListWrapper();
         wrapper.setTasks(tasks);
         try {
@@ -29,33 +29,29 @@ public class JsonUtils {
         }
     }
 
-    public static List<Task> getTasks(){
-//        System.out.println("Rodei");
+    public static List<Task> getTasks() {
         try {
             TaskListWrapper wrapper = objectMapper.readValue(
                     new File("src/tasks.json"), TaskListWrapper.class
             );
-//            for(Task task : wrapper.getTasks())
-//                System.out.println(task);
             return wrapper.getTasks();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void removeTask(String name){
+    public static void removeTask(String name) {
         try {
             TaskListWrapper wrapper = objectMapper.readValue(
                     new File("src/tasks.json"), TaskListWrapper.class
             );
-            for(Task task : wrapper.getTasks())
-                if(task.getName().equals(name)) wrapper.getTasks().remove(task);
+            wrapper.getTasks().removeIf(task -> task.getName().equals(name));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void addTask(Task task){
+    public static void addTask(Task task) {
         try {
             List<Task> tasks = getTasks();
             tasks.add(task);
@@ -69,8 +65,14 @@ public class JsonUtils {
 
     private static class TaskListWrapper {
         private List<Task> tasks;
-        public List<Task> getTasks() { return tasks; }
-        public void setTasks(List<Task> tasks) { this.tasks = tasks; }
+
+        public List<Task> getTasks() {
+            return tasks;
+        }
+
+        public void setTasks(List<Task> tasks) {
+            this.tasks = tasks;
+        }
     }
 
 }
