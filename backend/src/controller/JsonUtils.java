@@ -23,7 +23,7 @@ public class JsonUtils {
         TaskListWrapper wrapper = new TaskListWrapper();
         wrapper.setTasks(tasks);
         try {
-            objectMapper.writeValue(new File("src/tasks.json"), wrapper);
+            objectMapper.writeValue(new File("backend/src/tasks.json"), wrapper);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -32,7 +32,7 @@ public class JsonUtils {
     public static List<Task> getTasks() {
         try {
             TaskListWrapper wrapper = objectMapper.readValue(
-                    new File("src/tasks.json"), TaskListWrapper.class
+                    new File("backend/src/tasks.json"), TaskListWrapper.class
             );
             return wrapper.getTasks();
         } catch (IOException e) {
@@ -43,7 +43,7 @@ public class JsonUtils {
     public static void removeTask(String name) {
         try {
             TaskListWrapper wrapper = objectMapper.readValue(
-                    new File("src/tasks.json"), TaskListWrapper.class
+                    new File("backend/src/tasks.json"), TaskListWrapper.class
             );
             wrapper.getTasks().removeIf(task -> task.getName().equals(name));
         } catch (IOException e) {
@@ -57,7 +57,7 @@ public class JsonUtils {
             tasks.add(task);
             TaskListWrapper wrapper = new TaskListWrapper();
             wrapper.setTasks(tasks);
-            objectMapper.writeValue(new File("src/tasks.json"), wrapper);
+            objectMapper.writeValue(new File("backend/src/tasks.json"), wrapper);
         } catch (IOException e) {
             throw new RuntimeException("Failed to add task", e);
         }
