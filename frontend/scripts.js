@@ -61,7 +61,7 @@ var loadTasks = function () {
 
     for (var a = 0; a < testTasks.length; a++) {
         document.getElementById("tasks").innerHTML += `
-    <li class="taskItem" data-index="${a}">
+    <li class="taskItem" taskIndex="${a}">
         <div class="taskBody">
             <input type="checkbox" id="task-${a}" ${
             testTasks[a].status === "done" ? "checked" : ""
@@ -72,7 +72,7 @@ var loadTasks = function () {
             </label>
         </div>
 
-        <button class='editButton' data-index="${a}">
+        <button class='editButton' taskIndex="${a}">
             <img class='editSvg' src='assets/edit.svg' />
         </button>
     </li>
