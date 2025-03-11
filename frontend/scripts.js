@@ -169,6 +169,7 @@ function startEditing(index) {
     document.querySelector('input[name="taskCategory"]').value = task.category;
 
     submitButton.textContent = "Confirm Edit";
+    cancelButton.style.display = "block";
 
     // const form = document.getElementById("addTaskForm");
     if (!document.getElementById("cancelEdit")) {
@@ -180,9 +181,13 @@ function cancelEditing() {
     editingTaskIndex = -1;
     isEditing = false;
 
+    // limpar form
     document.querySelectorAll("input").forEach((input) => {
         input.value = "";
     });
+
+    submitButton.textContent = "Enter";
+    cancelButton.style.display = "none";
 }
 
 var isEditing = false;
