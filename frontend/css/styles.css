@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto";
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+main {
+    margin: auto;
+    text-align: center; /* deixa o texto no centro da div */
+    width: 50%;
+    padding: 10px;
+}
+
+/* Lista de tasks */
+ul {
+    list-style-type: none;
+    text-align: left;
+    padding: 10px;
+}
+
+/* Item na lista de tasks */
+.taskItem:hover {
+    background: rgba(69, 155, 69, 0.1);
+    border-radius: 5px;
+}
+
+.taskItem {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    background: rgba(69, 155, 69, 0.027);
+}
+
+.taskBody {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.editButton {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+.editButton:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.editSvg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Inputs */
+input {
+    border-radius: 5px;
+    margin: 2px 0;
+    border-color: rgb(207, 207, 207);
+    border-style: solid;
+}
+
+input::placeholder {
+    color: black;
+    opacity: 50%;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #00ff9d;
+}
+
+button {
+    margin: 2px 0;
+}
+
+/* Descricao da task na lista */
+.descriptionOnList {
+    font-weight: 300;
+    opacity: 95%;
+}
+
+/* input e botao do formulario */
+.addTaskForm input,
+button {
+    width: 30%;
+    height: 30px;
+    padding: 5px;
+}
+
+/* Formulario todo */
+.addTaskForm {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cancelEditButton {
+    width: 30%;
+    height: 30px;
+    margin-top: 10px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancelEditButton:hover {
+    background-color: #ff5252;
+}
+
+#submitTask.editMode {
+    background-color: #4caf50;
+    color: white;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <header><h1>TO DO LIST</h1></header>
+
+      <div class="tasksList">
+        <ul class="tasks" id="tasks"></ul>
+      </div>
+
+      <form class="addTaskForm" id="addTaskForm">
+        <input placeholder="Task Name" name="taskName" type="text" />
+        <input
+          placeholder="Task Description"
+          name="taskDescription"
+          type="text"
+        />
+        <input name="taskDate" type="datetime-local" />
+        <input
+          placeholder="Task Priority"
+          type="number"
+          name="taskPriority"
+          min="1"
+          max="5"
+        />
+        <input placeholder="Task Category" name="taskCategory" type="text" />
+        <button id="submitTask" type="submit" class="addTaskButton">
+          Enter
+        </button>
+      </div>
+    </main>
+  </body>
+  <script src="scripts.js"></script>
+</html>
