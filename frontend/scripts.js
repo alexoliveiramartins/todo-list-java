@@ -57,42 +57,62 @@ var testTasks = [
 
 // carrega as tasks pelo json (testTasks)
 var loadTasks = function () {
+    document.getElementById("tasks").innerHTML = "";
+
     for (var a = 0; a < testTasks.length; a++) {
         document.getElementById("tasks").innerHTML += `
-    <li class="taskItem">
+    <li class="taskItem" data-index="${a}">
         <div class="taskBody">
-            <input type="checkbox" id="task-${a}">
+            <input type="checkbox" id="task-${a}" ${
+            testTasks[a].status === "done" ? "checked" : ""
+        }>
             <label for="task-${a}">
                 <h3>${testTasks[a].name}</h3>
                 <sub class="descriptionOnList">${testTasks[a].description}</sub>
             </label>
         </div>
 
-        <button class='editButton'>
+        <button class='editButton' data-index="${a}">
             <img class='editSvg' src='assets/edit.svg' />
         </button>
     </li>
   `;
     }
+
+    taskListeners();
 };
 loadTasks();
+
+function taskListeners() {
+    var taskItems = document.querySelectorAll(".taskItem");
+    taskItems.forEach((task) => {
+        task.addEventListener("click", function (event) {
+            if (
+                event.target.tagName.toLowerCase() === "input" ||
+                event.target.tagName.toLowerCase() === "label"
+            )
+                return;
+
+            const checkbox = task.querySelector("input[type='checkbox']");
+            checkbox.checked = !checkbox.checked;
+
+            const index = task.getAttribute("taskIndex");
+            testTasks[index].status = checkbox.checked ? "done" : "todo";
+        });
+    });
+    const editButtons = document.querySelectorAll(".editButton");
+    editButtons.forEach((button) => {
+        button.addEventListener("click", function (event) {
+            event.stopPropagation();
+            const index = this.getAttribute("taskIndex");
+            startEditing(index);
+        });
+    });
+}
+
 // funcao para adicionar outra task
 var addNewTask = function (object) {
-    document.getElementById("tasks").innerHTML += `
-    <li class="taskItem">
-        <div class="taskBody">
-            <input type="checkbox" id="task-${testTasks.length + 1}">
-            <label for="task-${testTasks.length + 1}">
-                <h3>${object.name}</h3>
-                <sub class="descriptionOnList">${object.description}</sub>
-            </label>
-        </div>
-
-        <button class='editButton'>
-            <img class='editSvg' src='assets/edit.svg' />
-        </button>
-    </li>
-  `;
+    loadTasks();
 };
 
 // Funcao para enviar o formulario e criar objeto da task nova
@@ -102,20 +122,32 @@ form.addEventListener("submit", (event) => {
 
     const formData = new FormData(form);
 
+    var taskData = {
+        name: formData.get("taskName"),
+        description: formData.get("taskDescription"),
+        dueDate: formData.get("taskDate"),
+        priority: formData.get("taskPriority"),
+        category: formData.get("taskCategory"),
+        status: isEditing ? testTasks[editingTaskIndex].status : "todo",
+        alarms: isEditing ? testTasks[editingTaskIndex].alarms : [],
+    };
+
     // So funciona se a task tiver nome
-    if (formData.get("taskName")) {
-        var newTask = {
-            name: formData.get("taskName"),
-            description: formData.get("taskDescription"),
-            dueDate: formData.get("taskDate"),
-            priority: formData.get("taskPriority"),
-            category: formData.get("taskCategory"),
-            status: formData.get("taskStatus"),
-            alarms: "",
-        };
-        testTasks.push(newTask);
-        addNewTask(newTask);
-        console.log(testTasks);
+    if (taskData.name) {
+        if (isEditing) {
+            testTasks[editingTaskIndex] = taskData;
+            console.log("Task updated:", taskData);
+
+            isEditing = false;
+            editingTaskIndex = -1;
+            submitButton.textContent = "Enter";
+            cancelButton.style.display = "none";
+        } else {
+            testTasks.push(taskData);
+            console.log("New task added:", taskData);
+        }
+
+        loadTasks();
 
         // limpar os inputs
         document.querySelectorAll("input").forEach((input) => {
@@ -124,26 +156,56 @@ form.addEventListener("submit", (event) => {
     }
 });
 
-// toggle check task quando clica na task inteira
-taskItems.forEach((task) => {
-    task.addEventListener("click", function (event) {
-        if (event.target.tagName.toLowerCase() === "input") return;
+function startEditing(index) {
+    const task = testTasks[index];
+    editingTaskIndex = parseInt(index);
+    isEditing = true;
 
-        if (event.target.tagName.toLowerCase() === "label") {
-            event.preventDefault();
-        }
+    document.querySelector('input[name="taskName"]').value = task.name;
+    document.querySelector('input[name="taskDescription"]').value =
+        task.description;
+    document.querySelector('input[name="taskDate"]').value = task.dueDate;
+    document.querySelector('input[name="taskPriority"]').value = task.priority;
+    document.querySelector('input[name="taskCategory"]').value = task.category;
 
-        const checkbox = task.querySelector("input[type='checkbox']");
-        checkbox.checked = !checkbox.checked;
+    submitButton.textContent = "Confirm Edit";
+
+    // const form = document.getElementById("addTaskForm");
+    if (!document.getElementById("cancelEdit")) {
+        form.appendChild(cancelButton);
+    }
+}
+
+function cancelEditing() {
+    editingTaskIndex = -1;
+    isEditing = false;
+
+    document.querySelectorAll("input").forEach((input) => {
+        input.value = "";
     });
+}
+
+var isEditing = false;
+
+// logica do botao de editar/enviar nova task
+var submitButton = document.createElement("button");
+submitButton.id = "submitTask";
+submitButton.type = "submit";
+submitButton.className = "addTaskButton";
+submitButton.textContent = "Enter";
+// cancel button
+var cancelButton = document.createElement("button");
+cancelButton.id = "cancelEdit";
+cancelButton.type = "button";
+cancelButton.className = "cancelEditButton";
+cancelButton.textContent = "Cancel";
+
+document.getElementById("addTaskForm").appendChild(submitButton);
+
+cancelButton.addEventListener("click", function () {
+    cancelEditing();
 });
 
-taskItems.forEach((task) => {
-    const editButton = task.querySelector(".editButton");
-    if (editButton) {
-        editButton.addEventListener("click", function (event) {
-            event.stopPropagation();
-            console.log("A");
-        });
-    }
+document.getElementById("submitTask").addEventListener("click", () => {
+    console.log("a");
 });
