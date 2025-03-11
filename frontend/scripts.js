@@ -72,9 +72,14 @@ var loadTasks = function () {
             </label>
         </div>
 
-        <button class='editButton' taskIndex="${a}">
-            <img class='editSvg' src='assets/edit.svg' />
-        </button>
+         <div class="taskActions">
+            <button class='editButton' taskIndex="${a}">
+                <img class='editSvg' src='assets/edit.svg' />
+            </button>
+            <button class='deleteButton' taskIndex="${a}">
+                <img class='deleteSvg' src='assets/delete.svg' />
+            </button>
+        </div>
     </li>
   `;
     }
@@ -100,6 +105,7 @@ function taskListeners() {
             testTasks[index].status = checkbox.checked ? "done" : "todo";
         });
     });
+
     const editButtons = document.querySelectorAll(".editButton");
     editButtons.forEach((button) => {
         button.addEventListener("click", function (event) {
@@ -108,6 +114,27 @@ function taskListeners() {
             startEditing(index);
         });
     });
+
+    const deleteButtons = document.querySelectorAll(".deleteButton");
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", function (event) {
+            event.stopPropagation();
+            const index = this.getAttribute("taskIndex");
+            deleteTask(index);
+        });
+    });
+}
+
+function deleteTask(index) {
+    if (confirm("Deletar task")) {
+        testTasks.splice(index, 1);
+
+        if (isEditing && index == editingTaskIndex) {
+            cancelEditing();
+        }
+
+        loadTasks();
+    }
 }
 
 // funcao para adicionar outra task
