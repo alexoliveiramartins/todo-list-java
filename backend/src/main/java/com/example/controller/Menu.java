@@ -1,8 +1,8 @@
-package controller;
+package com.example.controller;
 
-import model.Task;
-import model.TasksData;
-import view.DisplayTasks;
+import com.example.model.Task;
+import com.example.model.TasksData;
+import com.example.view.DisplayTasks;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;

@@ -1,7 +1,7 @@
-package view;
+package com.example.view;
 
-import model.Task;
-import model.TasksData;
+import com.example.model.Task;
+import com.example.model.TasksData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

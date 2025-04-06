@@ -1,4 +1,4 @@
-package model;
+package com.example.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

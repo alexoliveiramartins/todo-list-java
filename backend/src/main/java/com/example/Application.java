@@ -1,5 +1,7 @@
-import controller.Alarm;
-import controller.Menu;
+package com.example;
+
+import com.example.controller.Alarm;
+import com.example.controller.Menu;
 
 public class Application {
     public static void main(String[] args) {

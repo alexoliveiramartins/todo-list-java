@@ -1,6 +1,6 @@
-package model;
+package com.example.model;
 
-import controller.JsonUtils;
+import com.example.controller.JsonUtils;
 
 import java.util.*;
 

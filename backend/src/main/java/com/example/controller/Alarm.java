@@ -1,7 +1,7 @@
-package controller;
+package com.example.controller;
 
-import model.Task;
-import model.TasksData;
+import com.example.model.Task;
+import com.example.model.TasksData;
 
 import javax.swing.*;
 import java.time.LocalDateTime;

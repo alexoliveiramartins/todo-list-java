@@ -1,9 +1,9 @@
-package controller;
+package com.example.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import model.Task;
+import com.example.model.Task;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import java.util.List;
 public class JsonUtils {
 
     private static final ObjectMapper objectMapper;
+    private static final String jsonPath = "src/main/tasks.json";
 
     static {
         objectMapper = new ObjectMapper();
@@ -23,7 +24,7 @@ public class JsonUtils {
         TaskListWrapper wrapper = new TaskListWrapper();
         wrapper.setTasks(tasks);
         try {
-            objectMapper.writeValue(new File("backend/src/tasks.json"), wrapper);
+            objectMapper.writeValue(new File(jsonPath), wrapper);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -32,7 +33,7 @@ public class JsonUtils {
     public static List<Task> getTasks() {
         try {
             TaskListWrapper wrapper = objectMapper.readValue(
-                    new File("backend/src/tasks.json"), TaskListWrapper.class
+                    new File(jsonPath), TaskListWrapper.class
             );
             return wrapper.getTasks();
         } catch (IOException e) {
@@ -43,7 +44,7 @@ public class JsonUtils {
     public static void removeTask(String name) {
         try {
             TaskListWrapper wrapper = objectMapper.readValue(
-                    new File("backend/src/tasks.json"), TaskListWrapper.class
+                    new File(jsonPath), TaskListWrapper.class
             );
             wrapper.getTasks().removeIf(task -> task.getName().equals(name));
         } catch (IOException e) {
@@ -57,7 +58,7 @@ public class JsonUtils {
             tasks.add(task);
             TaskListWrapper wrapper = new TaskListWrapper();
             wrapper.setTasks(tasks);
-            objectMapper.writeValue(new File("backend/src/tasks.json"), wrapper);
+            objectMapper.writeValue(new File(jsonPath), wrapper);
         } catch (IOException e) {
             throw new RuntimeException("Failed to add task", e);
         }
