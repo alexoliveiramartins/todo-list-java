@@ -6,12 +6,12 @@ import java.util.Scanner;
 import static java.lang.Thread.sleep;
 
 public class Utils {
-    private Utils() {
 
-    }
+    public static Scanner sc = new Scanner(System.in);
+
+    private Utils() { }
 
     public static String readInput() {
-        Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
 
@@ -21,26 +21,11 @@ public class Utils {
     }
 
     public static int readIntegerInput() {
-        Scanner sc = new Scanner(System.in);
-        int number;
-
-        while (true) {
-            if (sc.hasNextInt()) {
-                number = sc.nextInt();
-                sc.nextLine();
-                break;
-            } else {
-                System.out.println("Enter a valid number");
-                System.out.print("> ");
-                sc.nextLine();
-            }
-        }
-        return number;
+            return Integer.parseInt(sc.nextLine());
     }
-
-    public static int readIntegerInput(String question) {
-        System.out.print(question);
-        return readIntegerInput();
+    public static int readIntegerInput(String prompt) {
+        System.out.print(prompt);
+        return Integer.parseInt(sc.nextLine());
     }
 
     public static LocalDateTime stringToDate(String date) {

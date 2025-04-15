@@ -32,7 +32,7 @@ cd backend/
 - Navigate to /backend
 
 ```bash
-./gradlew run
+./gradlew run --console=plain
 ```
 
 ## Author

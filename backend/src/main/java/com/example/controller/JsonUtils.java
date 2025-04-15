@@ -12,7 +12,7 @@ import java.util.List;
 public class JsonUtils {
 
     private static final ObjectMapper objectMapper;
-    private static final String jsonPath = "src/main/tasks.json";
+    private static final String jsonPath = "tasks.json";
 
     static {
         objectMapper = new ObjectMapper();

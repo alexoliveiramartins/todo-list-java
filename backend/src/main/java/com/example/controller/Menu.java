@@ -83,12 +83,14 @@ public class Menu {
                 break;
             }
             case 4: {
-                int change = Utils.readIntegerInput("Enter new priority: ");
+                System.out.print("Enter new priority: ");
+                int change = Utils.readIntegerInput();
                 selectedTask.setPriority(change);
                 break;
             }
             case 5: {
-                String change = Utils.readInput("Enter new category: ");
+                System.out.print("Enter new category: ");
+                String change = Utils.readInput();
                 selectedTask.setCategory(change);
                 break;
             }
